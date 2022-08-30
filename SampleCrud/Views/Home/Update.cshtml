@@ -1,0 +1,47 @@
+﻿@model UserViewModel
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Update user</h1>
+
+<h4>You can only change user's name</h4>
+<hr />
+<form asp-action="Update" asp-controller="Home" method="post">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PersonnelCode" class="control-label"></label>
+                    <input asp-for="PersonnelCode" class="form-control" />
+                    <span asp-validation-for="PersonnelCode" class="text-danger"></span>
+                </div>
+                <div>
+                    <label>
+                        <input asp-for="IsActive" type="checkbox" onchange="Check(this)" />  Active / DeActive
+                    </label>
+                    <p id="IsActive"></p>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Users">Back to List</a>
+    </div>
+</form>
+
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

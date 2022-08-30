@@ -1,0 +1,63 @@
+﻿@model IEnumerable<UserViewModel>
+@{
+    ViewData["Title"] = "Users";
+}
+<h1>@ViewData["Title"]</h1>
+
+<a type="button" class="btn btn-secondary" asp-action="Create" asp-controller="Home">Create</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Name)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.PersonnelCode)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.IsActive)</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                @{
+                    int Count = 0;
+                    Count++;
+                    <th scope="row">@Count</th>
+                    <td>@user.Name</td>
+                    <td>@user.PersonnelCode</td>
+                    @if (@user.IsActive == true)
+                    {
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked disabled>
+
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
+
+                        </td>
+                    }
+                    <td>
+                        <a type="button" class="btn btn-secondary" asp-controller="Home" asp-action="Update" asp-route-id="@user.Id">Edit</a>
+                        <span id="confirmDeleteSpan_@user.Id" style="display:none">
+                            <span>Are you sure? do you want to delete @user.Name ?</span>
+                            <a class="btn btn-danger" asp-action="Delete" asp-controller="Home" asp-route-id="@user.Id">Yes</a>
+                            <a class="btn btn-primary" onclick="confirmDelete('@user.Id', false)">No</a>
+                        </span>
+                        <span id="deleteSpan_@user.Id">
+                            <a class="btn btn-danger" onclick="confirmDelete('@user.Id', true)">Delete</a>
+                        </span>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}
+
